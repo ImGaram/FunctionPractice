@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routinepractice.databinding.ItemListBinding
-import com.example.routinepractice.room.ListItem
+import com.example.routinepractice.item.ListItem
 
 class ListItemAdapter(private val list: List<ListItem>): RecyclerView.Adapter<ListItemAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

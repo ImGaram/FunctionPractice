@@ -6,10 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.routinepractice.adapter.ListItemAdapter
 import com.example.routinepractice.databinding.ActivityMainBinding
-import com.example.routinepractice.room.ListDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.routinepractice.database.ListDatabase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,6 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.addBtn.setOnClickListener {
             startActivity(Intent(this, AddListActivity::class.java))
+        }
+
+        binding.clockBtn.setOnClickListener {
+
         }
 
         val db = ListDatabase.getInstance(applicationContext)!!

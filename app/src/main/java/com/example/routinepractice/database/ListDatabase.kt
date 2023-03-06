@@ -1,9 +1,11 @@
-package com.example.routinepractice.room
+package com.example.routinepractice.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.routinepractice.dao.ListDao
+import com.example.routinepractice.item.ListItem
 
 @Database(entities = [ListItem::class], version = 1)
 abstract class ListDatabase: RoomDatabase() {
@@ -18,7 +20,7 @@ abstract class ListDatabase: RoomDatabase() {
             if (instance == null) {
                 synchronized(ListDatabase::class) {
                     instance = Room.databaseBuilder(context.applicationContext,
-                    ListDatabase::class.java, "list").build()
+                        ListDatabase::class.java, "list").build()
                 }
             }
             return instance

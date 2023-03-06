@@ -4,8 +4,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.routinepractice.databinding.ActivityAddListBinding
-import com.example.routinepractice.room.ListDatabase
-import com.example.routinepractice.room.ListItem
+import com.example.routinepractice.database.ListDatabase
+import com.example.routinepractice.item.ListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
