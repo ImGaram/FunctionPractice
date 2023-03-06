@@ -1,19 +1,19 @@
 package com.example.routinepractice.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
+import com.example.routinepractice.adapter.itemtouch.ItemTouchHelperListener
 import com.example.routinepractice.database.ProcedureDatabase
 import com.example.routinepractice.databinding.ItemCkeckBinding
 import com.example.routinepractice.item.ProcedureItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Collections
 
-class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list: MutableList<ProcedureItem>): RecyclerView.Adapter<ChangeProcedureAdapter.ViewHolder>() {
+class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list: MutableList<ProcedureItem>
+    ) : RecyclerView.Adapter<ChangeProcedureAdapter.ViewHolder>(), ItemTouchHelperListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemCkeckBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
@@ -66,8 +66,6 @@ class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list
                     list.add(last, procedureItem)
 
                     notifyItemMoved(adapterPosition, last)
-                    Log.d("TAG", "checkBoxLogic pos: $adapterPosition")
-                    Log.d("TAG", "checkBoxLogic list: $last")
                 }
             }
         } else {    // 체크되지 않음
@@ -81,11 +79,16 @@ class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list
                     list.add(0, updateItem)
 
                     notifyItemMoved(adapterPosition, 0)
-                    Log.d("TAG", "checkBoxLogic list: $last")
-                    Log.d("TAG", "checkBoxLogic adapter pos: $adapterPosition")
-                    Log.d("TAG", "checkBoxLogic list: $list")
                 }
             }
         }
+    }
+
+    // 아이템 옮기기 로직
+    override fun onItemMove(from: Int, to: Int) {
+        val item = list[from]
+        list.removeAt(from)
+        list.add(to, item)
+        notifyItemMoved(from, to)
     }
 }

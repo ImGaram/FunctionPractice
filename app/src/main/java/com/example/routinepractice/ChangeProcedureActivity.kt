@@ -2,8 +2,10 @@ package com.example.routinepractice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.routinepractice.adapter.ChangeProcedureAdapter
+import com.example.routinepractice.adapter.itemtouch.ItemTouchCallback
 import com.example.routinepractice.database.ProcedureDatabase
 import com.example.routinepractice.databinding.ActivityChangeProcedureBinding
 import com.example.routinepractice.item.ProcedureItem
@@ -27,11 +29,12 @@ class ChangeProcedureActivity : AppCompatActivity() {
         tempList.add(ProcedureItem("title4", "name4", false))
         tempList.add(ProcedureItem("title5", "name5", false))
 
+        val adapter = ChangeProcedureAdapter(ProcedureDatabase.getInstance(applicationContext)!!, tempList)
+        val itemTouchHelper by lazy { ItemTouchHelper(ItemTouchCallback(adapter)) }
+
         binding.checkRecyclerView.layoutManager = LinearLayoutManager(this)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            ProcedureDatabase.getInstance(applicationContext)?.procedureDao()?.deleteAll()
-//            binding.checkRecyclerView.adapter = ChangeProcedureAdapter(ProcedureDatabase.getInstance(applicationContext)!!, tempList)
-//        }
-        binding.checkRecyclerView.adapter = ChangeProcedureAdapter(ProcedureDatabase.getInstance(applicationContext)!!, tempList)
+        binding.checkRecyclerView.adapter = adapter
+        // recyclerview 에 item touch helper 연결
+        itemTouchHelper.attachToRecyclerView(binding.checkRecyclerView)
     }
 }
