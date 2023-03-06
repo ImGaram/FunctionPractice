@@ -62,7 +62,8 @@ class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list
 
                 db.procedureDao().update(updateItem)
                 CoroutineScope(Dispatchers.Main).launch {
-                    Collections.swap(list, adapterPosition, last)
+                    list.removeAt(adapterPosition)
+                    list.add(last, procedureItem)
 
                     notifyItemMoved(adapterPosition, last)
                     Log.d("TAG", "checkBoxLogic pos: $adapterPosition")
@@ -76,9 +77,13 @@ class ChangeProcedureAdapter(private val db: ProcedureDatabase, private val list
 
                 db.procedureDao().update(updateItem)
                 CoroutineScope(Dispatchers.Main).launch {
-                    Collections.swap(list, last, position)
+                    list.removeAt(adapterPosition)
+                    list.add(0, updateItem)
 
-                    notifyItemMoved(last, position)
+                    notifyItemMoved(adapterPosition, 0)
+                    Log.d("TAG", "checkBoxLogic list: $last")
+                    Log.d("TAG", "checkBoxLogic adapter pos: $adapterPosition")
+                    Log.d("TAG", "checkBoxLogic list: $list")
                 }
             }
         }
