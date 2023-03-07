@@ -16,7 +16,7 @@ class AchievementsActivity : AppCompatActivity() {
 
         binding = ActivityAchievementsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.progressBar.progress = 0    // 초기 설정
+        binding.progressBar.progress = 0f    // 초기 설정
 
         var click = 0
         val liveData = MutableLiveData<Int>()
@@ -27,7 +27,7 @@ class AchievementsActivity : AppCompatActivity() {
         // 카운트 감지(observe)
         liveData.observe(this) {
             binding.progressText.text = "$it/100"
-            binding.progressBar.progress = it
+            binding.progressBar.progress = it.toFloat()
 
             if (it == 100) {
                 binding.countBtn.visibility = View.GONE
